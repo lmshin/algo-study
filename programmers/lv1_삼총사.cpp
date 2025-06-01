@@ -1,23 +1,37 @@
-#include <string>
-#include <vector>
+#include<iostream>
+#include<vector>
+#include<queue>
 
 using namespace std;
 
-int count = 0;
+void dfs(int node, vector<vector<int>> map, bool check[], int &count) {
+	check[node] = true;
 
-void countConbination(int start, int depth, int sum, const vector<int>& vec) {
-    if (depth == 3) {
-        if (sum == 0) count++;
-        return;
-    }
+	for (int i = 1; i <= map.size(); i++) {
+		if (map[node][i] && !check[i]) {
+			(*count)++;
+			dfs(i, map, check, count);
+		}
+	}
 
-    for (int i = start; i < vec.size(); ++i) {
-        countConbination(i + 1, depth + 1, sum + vec[i], vec);
-    }
+	return;
 }
 
-int solution(vector<int> number) {
-    count = 0; // 전역 변수 초기화
-    countConbination(0, 0, 0, number);
-    return count;
+int main() {
+	int numComputer, v;
+	cin >> numComputer >> v;
+	vector<vector<int>> map(numComputer + 1, vector<int>(numComputer + 1, 0));
+	vector<bool> check[numComputer + 1] = { 0, };
+
+	int start, end;
+	for (int i = 0; i < v; i++) {
+		cin >> start >> end;
+		map[start][end] = 1;
+		map[end][start] = 1;
+	}
+
+	int count = 0;
+	dfs(1,mapm,check,&count);
+	
+	return 0;
 }
