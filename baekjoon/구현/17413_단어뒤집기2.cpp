@@ -8,6 +8,7 @@ string get_reverse_string(string s) {
 
 	for (int i = 0; i < s.size(); i++) {
 		string tmp;
+
 		if (s[i] == '<') {
 			reverse_string += s[i];
 			while (s[++i]!='>') {
